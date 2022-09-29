@@ -691,6 +691,7 @@ namespace TADHL
                                     //CON ESTO ACTUALIZAMOS EL ORDERHEADER 
                                     DataTable rorder = facLabControler.SelectLegHeader(leg);
 
+
                                     if (rorder.Rows.Count > 0)
                                     {
                                         foreach (DataRow reslo in rorder.Rows)
@@ -700,8 +701,19 @@ namespace TADHL
                                             string rfecha = dt.ToString("yyyy'/'MM'/'dd HH:mm:ss");
                                             DataTable uporder = facLabControler.UpdateOrderHeader(rorderh, rfecha);
                                             facLabControler.OrderHeader(rorderh, rfecha);
+                                            DataTable getSeg = facLabControler.GetSegJr(leg);
+                                            if (getSeg.Rows.Count > 0)
+                                            {
+                                                foreach (DataRow itemSeg in getSeg.Rows)
+                                                {
+                                                    string gbilto = itemSeg["billto"].ToString();
+                                                    facLabControler.InsertOrderReport(rorderh, leg, gbilto, tipom, rfecha);
+                                                }
+                                            }
+                                            //facLabControler.PullReportLiverded(rorderh,leg,rfecha);
                                         }
                                     }
+
                                     //facLabControler.enviarNotificacion(leg, mensaje);
 
                                     //Aqui actualizamos en estatus 
@@ -716,7 +728,31 @@ namespace TADHL
                                     string titulo = "Error en el segmento: ";
                                     //string mensaje = "Ver el historial de errores para mas información, copiar el error y reportar a TI.";
                                     DataTable updateLeg = facLabControler.UpdateLeg(leg, tipom);
+                                    DataTable rorder = facLabControler.SelectLegHeader(leg);
 
+                                    if (rorder.Rows.Count > 0)
+                                    {
+                                        foreach (DataRow reslo in rorder.Rows)
+                                        {
+                                            string rorderh = reslo["ord_hdrnumber"].ToString();
+                                            DateTime dt = DateTime.Parse(reslo["fecha"].ToString());
+                                            string rfecha = "null";
+                                            //DataTable uporder = facLabControler.UpdateOrderHeader(rorderh, rfecha);
+                                            //facLabControler.OrderHeader(rorderh, rfecha);
+                                            DataTable getSeg = facLabControler.GetSegJr(leg);
+                                            if (getSeg.Rows.Count > 0)
+                                            {
+                                                foreach (DataRow itemSeg in getSeg.Rows)
+                                                {
+                                                    string gbilto = itemSeg["billto"].ToString();
+                                                    facLabControler.InsertOrderReport(rorderh, leg, gbilto, tipom, rfecha);
+                                                }
+                                            }
+                                            //facLabControler.PullReportLiverded(rorderh,leg,rfecha);
+                                        }
+                                    }
+                                    string mensaje = "Error al generar carta porte.";
+                                    facLabControler.enviarNotificacion(leg, titulo, mensaje);
 
 
                                 }
@@ -730,6 +766,29 @@ namespace TADHL
                                 string titulo = "Error en el segmento: ";
                                 string mensaje = "Error al generar carta porte.";
                                 DataTable updateLeg = facLabControler.UpdateLeg(leg, tipom);
+                                DataTable rorder = facLabControler.SelectLegHeader(leg);
+
+                                if (rorder.Rows.Count > 0)
+                                {
+                                    foreach (DataRow reslo in rorder.Rows)
+                                    {
+                                        string rorderh = reslo["ord_hdrnumber"].ToString();
+                                        DateTime dt = DateTime.Parse(reslo["fecha"].ToString());
+                                        string rfecha = "null";
+                                        //DataTable uporder = facLabControler.UpdateOrderHeader(rorderh, rfecha);
+                                        //facLabControler.OrderHeader(rorderh, rfecha);
+                                        DataTable getSeg = facLabControler.GetSegJr(leg);
+                                        if (getSeg.Rows.Count > 0)
+                                        {
+                                            foreach (DataRow itemSeg in getSeg.Rows)
+                                            {
+                                                string gbilto = itemSeg["billto"].ToString();
+                                                facLabControler.InsertOrderReport(rorderh, leg, gbilto, tipom, rfecha);
+                                            }
+                                        }
+                                        //facLabControler.PullReportLiverded(rorderh,leg,rfecha);
+                                    }
+                                }
 
                                 facLabControler.enviarNotificacion(leg, titulo, mensaje);
                             }
@@ -744,6 +803,29 @@ namespace TADHL
                             string titulo = "Error en el segmento: ";
                             string mensaje = "Error en la obtención de datos:" + validaCFDI[0];
                             DataTable updateLeg = facLabControler.UpdateLeg(leg, tipom);
+                            DataTable rorder = facLabControler.SelectLegHeader(leg);
+
+                            if (rorder.Rows.Count > 0)
+                            {
+                                foreach (DataRow reslo in rorder.Rows)
+                                {
+                                    string rorderh = reslo["ord_hdrnumber"].ToString();
+                                    DateTime dt = DateTime.Parse(reslo["fecha"].ToString());
+                                    string rfecha = "null";
+                                    //DataTable uporder = facLabControler.UpdateOrderHeader(rorderh, rfecha);
+                                    //facLabControler.OrderHeader(rorderh, rfecha);
+                                    DataTable getSeg = facLabControler.GetSegJr(leg);
+                                    if (getSeg.Rows.Count > 0)
+                                    {
+                                        foreach (DataRow itemSeg in getSeg.Rows)
+                                        {
+                                            string gbilto = itemSeg["billto"].ToString();
+                                            facLabControler.InsertOrderReport(rorderh, leg, gbilto, tipom, rfecha);
+                                        }
+                                    }
+                                    //facLabControler.PullReportLiverded(rorderh,leg,rfecha);
+                                }
+                            }
                             facLabControler.enviarNotificacion(leg, titulo, mensaje);
                         }
                     }
@@ -756,6 +838,29 @@ namespace TADHL
                         string titulo = "Error en el segmento: ";
                         string mensaje = "Error al validar el segmento.";
                         DataTable updateLeg = facLabControler.UpdateLeg(leg, tipom);
+                        DataTable rorder = facLabControler.SelectLegHeader(leg);
+
+                        if (rorder.Rows.Count > 0)
+                        {
+                            foreach (DataRow reslo in rorder.Rows)
+                            {
+                                string rorderh = reslo["ord_hdrnumber"].ToString();
+                                DateTime dt = DateTime.Parse(reslo["fecha"].ToString());
+                                string rfecha = "null";
+                                //DataTable uporder = facLabControler.UpdateOrderHeader(rorderh, rfecha);
+                                //facLabControler.OrderHeader(rorderh, rfecha);
+                                DataTable getSeg = facLabControler.GetSegJr(leg);
+                                if (getSeg.Rows.Count > 0)
+                                {
+                                    foreach (DataRow itemSeg in getSeg.Rows)
+                                    {
+                                        string gbilto = itemSeg["billto"].ToString();
+                                        facLabControler.InsertOrderReport(rorderh, leg, gbilto, tipom, rfecha);
+                                    }
+                                }
+                                //facLabControler.PullReportLiverded(rorderh,leg,rfecha);
+                            }
+                        }
 
                         facLabControler.enviarNotificacion(leg, titulo, mensaje);
                     }
@@ -769,6 +874,29 @@ namespace TADHL
                     string titulo = "Error en el segmento: ";
                     string mensaje = "Segmento invalido";
                     DataTable updateLeg = facLabControler.UpdateLeg(leg, tipom);
+                    DataTable rorder = facLabControler.SelectLegHeader(leg);
+
+                    if (rorder.Rows.Count > 0)
+                    {
+                        foreach (DataRow reslo in rorder.Rows)
+                        {
+                            string rorderh = reslo["ord_hdrnumber"].ToString();
+                            DateTime dt = DateTime.Parse(reslo["fecha"].ToString());
+                            string rfecha = "null";
+                            //DataTable uporder = facLabControler.UpdateOrderHeader(rorderh, rfecha);
+                            //facLabControler.OrderHeader(rorderh, rfecha);
+                            DataTable getSeg = facLabControler.GetSegJr(leg);
+                            if (getSeg.Rows.Count > 0)
+                            {
+                                foreach (DataRow itemSeg in getSeg.Rows)
+                                {
+                                    string gbilto = itemSeg["billto"].ToString();
+                                    facLabControler.InsertOrderReport(rorderh, leg, gbilto, tipom, rfecha);
+                                }
+                            }
+                            //facLabControler.PullReportLiverded(rorderh,leg,rfecha);
+                        }
+                    }
                     facLabControler.enviarNotificacion(leg, titulo, mensaje);
                 }
             }
