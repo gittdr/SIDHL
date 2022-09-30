@@ -261,6 +261,36 @@ namespace TADHL.Models
             }
 
         }
+        public DataTable SelectLegHeaderOnly(string orseg)
+        {
+            DataTable dataTable = new DataTable();
+            using (SqlConnection connection = new SqlConnection(this._ConnectionString))
+            {
+                connection.Open();
+                using (SqlCommand selectCommand = new SqlCommand("sp_obtener_order_header_ONLY", connection))
+                {
+
+                    selectCommand.CommandType = CommandType.StoredProcedure;
+                    selectCommand.CommandTimeout = 100000;
+                    selectCommand.Parameters.AddWithValue("@leg", (object)orseg);
+                    selectCommand.ExecuteNonQuery();
+                    using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(selectCommand))
+                    {
+                        try
+                        {
+                            //selectCommand.Connection.Open();
+                            sqlDataAdapter.Fill(dataTable);
+                        }
+                        catch (SqlException ex)
+                        {
+                            connection.Close();
+                            string message = ex.Message;
+                        }
+                    }
+                }
+            }
+            return dataTable;
+        }
         public DataTable UpdateOrderHeader(string orheader, string fecha)
         {
             DataTable dataTable = new DataTable();
