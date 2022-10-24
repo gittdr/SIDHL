@@ -150,6 +150,10 @@ namespace TADHL.Models
         {
             this.modelFact.enviarNotificacion(leg, titulo, mensaje);
         }
+        public void enviarNotificacionError(string titulo, string mensaje)
+        {
+            this.modelFact.enviarNotificacionError(titulo, mensaje);
+        }
         public void RegEjecucion()
         {
             this.modelFact.RegEjecucion();

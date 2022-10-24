@@ -653,6 +653,28 @@ namespace TADHL
                     }
                 }
             }
+            else
+            {
+                DirectoryInfo dif = new DirectoryInfo(@"\\10.223.208.41\Users\Administrator\Documents\DHLORDENES");
+                //DirectoryInfo dif = new DirectoryInfo(@"C:\Administración\Proyecto DHL\Ordenes");
+
+                FileInfo[] filesf = dif.GetFiles("*");
+
+                int cantidadf = filesf.Length;
+                if (cantidadf > 0)
+                {
+                    foreach (var iteme in filesf)
+                    {
+                        string nameA = iteme.Name.ToString();
+                        string titulo = "Formato incorrecto: ";
+                        string mensaje = "Error, el formato debe ser tsv." + "El archivo: " + nameA +" "+ "fue eliminado";
+                        facLabControler.enviarNotificacionError(titulo, mensaje);
+                        iteme.Delete();
+                    }
+                }
+
+                
+            }
         }
         public static List<string> valida(string leg)
         {
